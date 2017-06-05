@@ -10,11 +10,11 @@ public class BaseClientHandler extends SimpleChannelInboundHandler<String>{
         System.out.println("Client channelRead0 received:" + msg);
     }
     
-//    @Override
-//    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        System.out.println("Client channelRead received:" + msg);
-//        
-//    }
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println("Client channelRead received:" + msg);
+
+    }
   
      @Override
      public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

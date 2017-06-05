@@ -9,7 +9,7 @@ public class CustomServerHandler extends SimpleChannelInboundHandler<Object> {
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(msg instanceof CustomMsg) {
             CustomMsg customMsg = (CustomMsg)msg;
-            System.out.println("Client->Server:"+ctx.channel().remoteAddress()+" send "+customMsg.getBody());
+            System.out.println("Client->Server:"+ctx.channel().remoteAddress()+" send : "+customMsg.getBody());
         }
         
     }

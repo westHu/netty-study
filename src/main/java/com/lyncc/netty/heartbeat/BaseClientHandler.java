@@ -40,10 +40,11 @@ public class BaseClientHandler extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         System.out.println("触发时间："+new Date());
         if (evt instanceof IdleStateEvent) {
+            System.out.println();
             IdleStateEvent event = (IdleStateEvent) evt;
             if (event.state() == IdleState.WRITER_IDLE) {
                 if(currentTime <= TRY_TIMES){
-                    System.out.println("currentTime:"+currentTime);
+                    System.out.println("11currentTime:"+currentTime);
                     currentTime++;
                     ctx.channel().writeAndFlush(HEARTBEAT_SEQUENCE.duplicate());
                 }

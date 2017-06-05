@@ -19,7 +19,7 @@ public class KeepAliveServer {
     ServerBootstrap b ;
     
     public void startServer() {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         
         try {
@@ -39,6 +39,11 @@ public class KeepAliveServer {
             workerGroup.shutdownGracefully();
         }
         
+    }
+
+    public static void main(String[] args) {
+        KeepAliveServer server = new KeepAliveServer(1666);
+        server.startServer();
     }
 
 }

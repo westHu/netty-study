@@ -38,15 +38,15 @@ public class BaseClient {
             future.channel().writeAndFlush("Hello Netty Server ,I am a common client");
             future.channel().closeFuture().sync();
         } finally {
-//            group.shutdownGracefully();
-            if (null != future) {
+            group.shutdownGracefully();
+            /*if (null != future) {
                 if (future.channel() != null && future.channel().isOpen()) {
                     future.channel().close();
                 }
             }
             System.out.println("准备重连");
             connect(port, host);
-            System.out.println("重连成功");
+            System.out.println("重连成功");*/
         }
     }
 

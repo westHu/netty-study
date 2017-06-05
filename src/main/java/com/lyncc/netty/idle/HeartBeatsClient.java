@@ -32,41 +32,41 @@ public class HeartBeatsClient {
         boot = new Bootstrap();
         boot.group(group).channel(NioSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO));
             
-        final ConnectionWatchdog watchdog = new ConnectionWatchdog(boot, timer, port,host, true) {
+        final ConnectionWatchdog watchdog = new ConnectionWatchdog(boot, timer, port, host, true) {
 
-                public ChannelHandler[] handlers() {
-                    return new ChannelHandler[] {
-                            this,
-                            new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
-                            idleStateTrigger,
-                            new StringDecoder(),
-                            new StringEncoder(),
-                            new HeartBeatClientHandler()
-                    };
-                }
-            };
-            
-            ChannelFuture future;
-            //进行连接
-            try {
-                synchronized (boot) {
-                    boot.handler(new ChannelInitializer<Channel>() {
-
-                        //初始化channel
-                        @Override
-                        protected void initChannel(Channel ch) throws Exception {
-                            ch.pipeline().addLast(watchdog.handlers());
-                        }
-                    });
-
-                    future = boot.connect(host,port);
-                }
-
-                // 以下代码在synchronized同步块外面是安全的
-                future.sync();
-            } catch (Throwable t) {
-                throw new Exception("connects to  fails", t);
+            public ChannelHandler[] handlers() {
+                return new ChannelHandler[] {
+                        this,
+                        new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
+                        idleStateTrigger,
+                        new StringDecoder(),
+                        new StringEncoder(),
+                        new HeartBeatClientHandler()
+                };
             }
+        };
+            
+        ChannelFuture future;
+        //进行连接
+        try {
+            synchronized (boot) {
+                boot.handler(new ChannelInitializer<Channel>() {
+
+                    //初始化channel
+                    @Override
+                    protected void initChannel(Channel ch) throws Exception {
+                        ch.pipeline().addLast(watchdog.handlers());
+                    }
+                });
+
+                future = boot.connect(host,port);
+            }
+
+            // 以下代码在synchronized同步块外面是安全的
+            future.sync();
+        } catch (Throwable t) {
+            throw new Exception("connects to  fails", t);
+        }
     }
 
     /**

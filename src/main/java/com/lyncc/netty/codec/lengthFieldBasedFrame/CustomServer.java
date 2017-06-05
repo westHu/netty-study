@@ -13,7 +13,7 @@ import java.net.InetSocketAddress;
 
 public class CustomServer {
     
-    private static final int MAX_FRAME_LENGTH = 1024 * 1024;
+    private static final int MAX_FRAME_LENGTH = 7; //解码时，处理每个帧数据的最大长度
     private static final int LENGTH_FIELD_LENGTH = 4;
     private static final int LENGTH_FIELD_OFFSET = 2;
     private static final int LENGTH_ADJUSTMENT = 0;
